@@ -11,14 +11,18 @@ export const Container = styled.div`
   display: flex;
   align-self: start;
   width: 95%;
-  border-bottom: 3px solid #081235;
+  border-bottom: 2px solid #c9cffa;
   margin: 20px;
+  padding: 5px;
 
   h1 {
     margin: 10px 10px 0;
-    @import url('https://fonts.googleapis.com/css?family=Amiri&display=swap');
+    @import url('https://fonts.googleapis.com/css?family=Amiri|Lora|Muli&display=swap');  
     font-family: 'Amiri', serif;
-    color:  #ea5561 ;
+    font-family: 'Muli', sans-serif;
+    font-family: 'Lora', serif;
+    font-size: 35px;
+    color: #0d1442;
   }
 `
   

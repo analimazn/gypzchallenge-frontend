@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
-import { createGlobalStyle } from 'styled-components'
+import styled from 'styled-components'
 
-const GlobalStyle = createGlobalStyle`
+const GlobalStyle = styled.div`
   * {
     margin: 0;
     padding: 0;
@@ -17,10 +17,8 @@ const GlobalStyle = createGlobalStyle`
   body {
     text-rendering: optimizeLegibility !important;
     -webkit-font-smoothing: antialiased !important;
-    background: #181818;
     @import url('https://fonts.googleapis.com/css?family=Amiri&display=swap');
     font-family: 'Amiri', serif;
-    color: #FFF
   }
   button {
     cursor: pointer;
