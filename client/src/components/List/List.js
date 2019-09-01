@@ -6,16 +6,22 @@ export class List extends React.Component {
     return (
       <Container>
          <Card>
-          <Title>OLÁ :</Title>
+          <Title>OLÁ:</Title>
           <Text>OLÁ</Text>
-           <Title>OLÁ :</Title>
+          <Title>OLÁ:</Title>
           <Text>OLÁ</Text>
+          <Title>OLÁ:</Title>
+          <Text>OLÁ</Text>
+          <Button>Remover</Button>
         </Card>
         <Card>
-          <Title>OLÁ</Title>
+          <Title>OLÁ:</Title>
           <Text>OLÁ</Text>
+          <Title>OLÁ:</Title>
           <Text>OLÁ</Text>
+          <Title>OLÁ:</Title>
           <Text>OLÁ</Text>
+          <Button>Remover</Button>
         </Card>
       </Container>
     )

@@ -2,7 +2,9 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   margin: 20px;
   padding: 5px;
 `
@@ -23,10 +25,9 @@ export const Button = styled.button`
   background: #3a83a5;
   color: #fff;
   font-size: 1em;
-  margin: 1em;
-  padding: 0.25em 1em;
   border: none;
   border-radius: 3px;
+  align-self: end;
 `
 
 export const Label = styled.label`

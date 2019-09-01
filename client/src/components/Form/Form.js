@@ -4,10 +4,15 @@ import { Container, Form, Input, Button, Text, Label } from './FormStyle'
 import { Formik } from 'formik'
 
 export class CadasterCard extends React.Component {
+  componentDidUpdate(prevProps, prevState) {
+    this.formik.resetForm()
+  }
+
   render() {
     return (
       <Container>
         <Formik
+          ref={(ref) => this.formik = ref}
           initialValues={
             { 
               firstName: '', 
@@ -74,7 +79,7 @@ export class CadasterCard extends React.Component {
             return errors
           }}
           onSubmit={ values => {
-            console.log(values)
+            alert(values, 2, null)
           }}
           render={({
             touched,
