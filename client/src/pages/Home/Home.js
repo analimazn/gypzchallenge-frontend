@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Tab, Button } from './HomeStyle'
 import { List } from '../../components/List/List'
-import { Form } from '../../components/Form/Form'
+import { CadasterCard } from '../../components/Form/Form'
 
 export class Home extends React.Component {
   state = {
@@ -26,7 +26,7 @@ export class Home extends React.Component {
                'Solicitar novo Cartão'
             }</Button>
         </Tab>
-        { this.state.cadasterCard ? <Form/> : <List/> }
+        { this.state.cadasterCard ? <CadasterCard/> : <List/> }
       </div>
     )
   }
