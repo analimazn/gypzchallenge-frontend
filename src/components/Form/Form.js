@@ -1,9 +1,26 @@
 import React from 'react'
 import moment from 'moment'
+import * as yup from 'yup'
 import { Container, Form, Input, Button, Text, Label } from './FormStyle'
 import { Formik } from 'formik'
 
 export class CadasterCard extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      firstName: '', 
+      lastName: '',
+      document: '',
+      bornDate: '',
+      zipCode: '',
+      houseNumber: '',
+      moreInfo: '',
+      cellphoneNumber: '',
+      phoneNumber: '',
+      income: ''
+    }
+  }
+
   componentDidUpdate(prevProps, prevState) {
     this.formik.resetForm()
   }
@@ -22,6 +39,7 @@ export class CadasterCard extends React.Component {
               zipCode: '',
               houseNumber: '',
               moreInfo: '',
+              cellphoneNumber: '',
               phoneNumber: '',
               income: ''
             }
@@ -32,14 +50,21 @@ export class CadasterCard extends React.Component {
             let age = moment.duration(moment().diff(values.bornDate)).asYears();
             let documentLength = values.document.length
             let zipCodeLength = values.zipCode.length
+            let cellphoneNumberLength = values.cellphoneNumber.length
             let phoneNumberLength = values.phoneNumber.length
+            let firstNameLength = values.firstName.length
+            let lastNameLength = values.lastName.length 
 
             if (!values.firstName) {
               errors.firstName = 'Nome é obrigatório'
+            } else if (firstNameLength < 3) {
+              errors.document = 'Nome inválido'
             }
 
             if (!values.lastName) {
               errors.lastName = 'Sobrenome é obrigatório'
+            } else if (firstNameLength < 3) {
+              errors.document = 'Sobrenome inválido'
             }
 
             if (!values.document) {
@@ -64,15 +89,19 @@ export class CadasterCard extends React.Component {
               errors.houseNumber = "Número da residência é obrigatório"
             }
 
-            if (!values.phoneNumber) {
-              errors.phoneNumber = "Número de telefone é obrigatório"
-            } else if (phoneNumberLength < 10 || phoneNumberLength > 11) {
+            if (!values.cellphoneNumber) {
+              errors.cellphoneNumber = "Número de celular é obrigatório"
+            } else if (cellphoneNumberLength < 11) {
+              errors.cellphoneNumber = 'Número de celular inválido'
+            }
+
+            if (phoneNumberLength < 10) {
               errors.phoneNumber = 'Número de telefone inválido'
             }
 
             if (!values.income) {
               errors.income = "Valor da renda é obrigatório"
-            } else if (parseInt(values.income) < 1000) {
+            } else if (parseInt(values.income) < 2000) {
               errors.income = "Valor da renda mínima precisa ser de R$1.000,00"
             }
 
@@ -182,7 +211,21 @@ export class CadasterCard extends React.Component {
               </Label>
               
               <Label>
-                Telefone *
+                Celular *
+                { errors.cellphoneNumber && <Text color="red">{ errors.cellphoneNumber }</Text> }
+                <Input
+                  onChange={ handleChange }
+                  onBlur={ handleBlur }
+                  value={ values.cellphoneNumber }
+                  border={ errors.cellphoneNumber && "1px solid red" }
+                  type="number"
+                  name="cellphoneNumber"
+                  placeholder="Somente números (DDD + Número)"
+                />
+              </Label>
+
+              <Label>
+                Telefone
                 { errors.phoneNumber && <Text color="red">{ errors.phoneNumber }</Text> }
                 <Input
                   onChange={ handleChange }
