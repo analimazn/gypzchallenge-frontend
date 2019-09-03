@@ -1,26 +1,65 @@
 import React from 'react'
 import moment from 'moment'
-import * as yup from 'yup'
+import * as Yup from 'yup'
 import { Container, Form, Input, Button, Text, Label } from './FormStyle'
 import { Formik } from 'formik'
 
-export class CadasterCard extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      firstName: '', 
-      lastName: '',
-      document: '',
-      bornDate: '',
-      zipCode: '',
-      houseNumber: '',
-      moreInfo: '',
-      cellphoneNumber: '',
-      phoneNumber: '',
-      income: ''
-    }
-  }
+const initialForm = {
+  firstName: '',
+  lastName: '',
+  document: '',
+  bornDate: '',
+  zipCode: '',
+  houseNumber: '',
+  moreInfo: '',
+  cellphoneNumber: '',
+  phoneNumber: '',
+  income: ''
+}
 
+const formValidationSchema = Yup.object().shape({
+  firstName: Yup.string()
+    .min(3, 'Mínimo 3 caracteres')
+    .max(30, 'Máximo 30 caracteres')
+    .trim()
+    .uppercase()
+    .required('Por favor, insira o seu primeiro nome'),
+  lastName: Yup.string()
+    .min(3, 'Mínimo 3 caracteres')
+    .max(30, 'Máximo 30 caracteres')
+    .trim()
+    .uppercase()
+    .required('Por favor, insira o seu sobrenome'),
+  document: Yup.number()
+    .positive('Por favor, insira valores inteiros')
+    .test('len', 'Mínimo 11 caracteres', doc => doc && doc.toString().length === 11)
+    .required('Por favor, insira o seu CPF'),
+  bornDate: Yup.date(),
+  zipCode: Yup.number()
+    .positive('Por favor, insira valores inteiros')
+    .test('len', 'Mínimo 8 caracteres', zip => zip && zip.toString().length === 8)
+    .required('Por favor, insira o seu CEP'),
+  houseNumber: Yup.number()
+    .positive('Por favor, insira valores inteiros')
+    .required('Por favor, insira o número da sua residência'),
+  moreInfo: Yup.string()
+    .trim()
+    .uppercase(),
+  cellphoneNumber: Yup.number()
+    .positive('Por favor, insira valores inteiros')
+    .test('len', 'Mínimo 11 caracteres', cell => cell && cell.toString().length === 11)
+    .required('Por favor, insira o número do seu celular'),
+  phoneNumber: Yup.number()
+    .positive('Por favor, insira valores inteiros')
+    .test('len', 'Mínimo 10 caracteres', phone => phone && phone.toString().length === 10),
+  income: Yup.number()
+    .positive('Por favor, insira valores inteiros')
+    .min(100, 'Mínimo R$ 100,00')
+    .required('Por favor, insira a sua renda mensal')
+})
+
+
+export class CadasterCard extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     this.formik.resetForm()
   }
@@ -30,93 +69,44 @@ export class CadasterCard extends React.Component {
       <Container>
         <Formik
           ref={(ref) => this.formik = ref}
-          initialValues={
-            { 
-              firstName: '', 
-              lastName: '',
-              document: '',
-              bornDate: '',
-              zipCode: '',
-              houseNumber: '',
-              moreInfo: '',
-              cellphoneNumber: '',
-              phoneNumber: '',
-              income: ''
-            }
-          }
+          initialValues={{
+            firstName: '',
+            lastName: '',
+            document: '',
+            bornDate: '',
+            zipCode: '',
+            houseNumber: '',
+            moreInfo: '',
+            cellphoneNumber: '',
+            phoneNumber: '',
+            income: ''
+          }}
           validate={ values => {
             let errors = {}
-
-            let age = moment.duration(moment().diff(values.bornDate)).asYears();
-            let documentLength = values.document.length
-            let zipCodeLength = values.zipCode.length
-            let cellphoneNumberLength = values.cellphoneNumber.length
-            let phoneNumberLength = values.phoneNumber.length
-            let firstNameLength = values.firstName.length
-            let lastNameLength = values.lastName.length 
-
-            if (!values.firstName) {
-              errors.firstName = 'Nome é obrigatório'
-            } else if (firstNameLength < 3) {
-              errors.document = 'Nome inválido'
-            }
-
-            if (!values.lastName) {
-              errors.lastName = 'Sobrenome é obrigatório'
-            } else if (firstNameLength < 3) {
-              errors.document = 'Sobrenome inválido'
-            }
-
-            if (!values.document) {
-              errors.document = 'CPF é obrigatório';
-            } else if (documentLength < 11 || documentLength > 11) {
-              errors.document = 'CPF inválido'
-            }
-
+            let age = moment.duration(moment().diff(values.bornDate)).asYears()
+            
             if (!values.bornDate) {
               errors.bornDate = "Data de nascimento é obrigatória"
             } else if (age < 18) {
               errors.bornDate = 'Mínimo 18 anos'
             }
-
-            if (!values.zipCode) {
-              errors.zipCode = "CEP é obrigatório"
-            } else if (zipCodeLength < 8 || zipCodeLength > 8) {
-              errors.zipCode = 'CEP inválido'
-            }
-
-            if (!values.houseNumber) {
-              errors.houseNumber = "Número da residência é obrigatório"
-            }
-
-            if (!values.cellphoneNumber) {
-              errors.cellphoneNumber = "Número de celular é obrigatório"
-            } else if (cellphoneNumberLength < 11) {
-              errors.cellphoneNumber = 'Número de celular inválido'
-            }
-
-            if (phoneNumberLength < 10) {
-              errors.phoneNumber = 'Número de telefone inválido'
-            }
-
-            if (!values.income) {
-              errors.income = "Valor da renda é obrigatório"
-            } else if (parseInt(values.income) < 2000) {
-              errors.income = "Valor da renda mínima precisa ser de R$1.000,00"
-            }
-
             return errors
           }}
           onSubmit={ values => {
             alert(values, 2, null)
           }}
+          onReset={ values => {
+
+          }}
+          validationSchema={ formValidationSchema }
           render={({
             touched,
             errors,
             values,
             handleChange,
             handleBlur,
-            handleSubmit
+            handleSubmit,
+            handleReset
           }) => (
             <Form onSubmit={ handleSubmit }>
               <Label>
@@ -125,7 +115,7 @@ export class CadasterCard extends React.Component {
                 <Input
                   onChange={ handleChange }
                   onBlur={ handleBlur }
-                  value={ values.firstName }
+                  value={ values.firstName || '' }
                   border={ errors.firstName && "1px solid red" }
                   type="text" 
                   name="firstName" 
@@ -138,7 +128,7 @@ export class CadasterCard extends React.Component {
                 <Input
                   onChange={ handleChange }
                   onBlur={ handleBlur }
-                  value={ values.lastName }
+                  value={ values.lastName || '' }
                   border={ errors.lastName && "1px solid red" }
                   type="text"
                   name="lastName"
@@ -151,7 +141,7 @@ export class CadasterCard extends React.Component {
                 <Input
                   onChange={ handleChange }
                   onBlur={ handleBlur }
-                  value={ values.document }
+                  value= { values.document || '' }
                   border={ errors.document && "1px solid red" }
                   type="number"
                   name="document"
@@ -165,7 +155,7 @@ export class CadasterCard extends React.Component {
                 <Input
                   onChange={ handleChange }
                   onBlur={ handleBlur }
-                  value={ values.bornDate }
+                  value={ values.bornDate || '' }
                   border={ errors.bornDate && "1px solid red" }
                   type="date"
                   name="bornDate"
@@ -178,7 +168,7 @@ export class CadasterCard extends React.Component {
                 <Input
                   onChange={ handleChange }
                   onBlur={ handleBlur }
-                  value={ values.zipCode }
+                  value={ values.zipCode || '' }
                   border={ errors.zipCode && "1px solid red" }
                   type="number"
                   name="zipCode"
@@ -192,10 +182,11 @@ export class CadasterCard extends React.Component {
                 <Input
                   onChange={ handleChange }
                   onBlur={ handleBlur }
-                  value={ values.houseNumber }
+                  value={ values.houseNumber || '' }
                   border={ errors.houseNumber && "1px solid red" }
                   type="number"
                   name="houseNumber"
+                  placeholder="Somente números"
                 />
               </Label>
 
@@ -204,7 +195,7 @@ export class CadasterCard extends React.Component {
                 <Input
                   onChange={ handleChange }
                   onBlur={ handleBlur }
-                  value={ values.moreInfo }
+                  value={ values.moreInfo || '' }
                   type="text"
                   name="moreInfo"
                 />
@@ -216,7 +207,7 @@ export class CadasterCard extends React.Component {
                 <Input
                   onChange={ handleChange }
                   onBlur={ handleBlur }
-                  value={ values.cellphoneNumber }
+                  value={ values.cellphoneNumber || '' }
                   border={ errors.cellphoneNumber && "1px solid red" }
                   type="number"
                   name="cellphoneNumber"
@@ -230,7 +221,7 @@ export class CadasterCard extends React.Component {
                 <Input
                   onChange={ handleChange }
                   onBlur={ handleBlur }
-                  value={ values.phoneNumber }
+                  value={ values.phoneNumber || '' }
                   border={ errors.phoneNumber && "1px solid red" }
                   type="number"
                   name="phoneNumber"
@@ -244,14 +235,19 @@ export class CadasterCard extends React.Component {
                 <Input
                   onChange={ handleChange }
                   onBlur={ handleBlur }
-                  value={ values.income }
+                  value={ values.income || '' }
                   border={ errors.income && "1px solid red" }
                   type="number"
                   name="income"
+                  placeholder="Somente números (R$ 100,00)"
                 />
               </Label>
               
-              <Button type="submit">Enviar</Button>
+              <Button 
+                type="submit" 
+                onReset={ handleReset }
+              > Enviar
+              </Button>
             </Form>
           )}
         />
