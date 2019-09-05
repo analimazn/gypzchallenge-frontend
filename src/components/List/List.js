@@ -6,8 +6,8 @@ export class List extends React.Component {
     return (
       <Container>
          <Card>
-          <Title>OLÁ:</Title>
-          <Text>OLÁ</Text>
+          <Title>ananna:</Title>
+          <Text>ananna</Text>
           <Title>OLÁ:</Title>
           <Text>OLÁ</Text>
           <Title>OLÁ:</Title>

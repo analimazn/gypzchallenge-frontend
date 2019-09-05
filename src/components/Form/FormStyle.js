@@ -8,10 +8,15 @@ export const Container = styled.div`
 `
 
 export const Form = styled.form`
+  width: 800px;
+  margin: 0 0 20px 0;
+  padding: 10px;
+  background-color: #FFF;
   display: flex;
   flex-direction: column;
   align-content: center;
   align-items: center;
+  border-radius: 5px;
 `
 
 export const Input = styled.input`

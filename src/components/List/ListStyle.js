@@ -8,12 +8,14 @@ export const Container = styled.div`
 
 export const Card = styled.div`
   display: flex;
+  background-color: #FFF;
   flex-direction: column; 
-  padding: 5px;
-  margin: 10px 0 10px 0;
-  border-radius: 3px;
   align-self: center;
+  padding: 10px;
+  margin: 10px 0 10px 0;
+  border-radius: 5px;
   border: 2px solid #c9cffa;
+  text-align: justify;
   
   @media (max-width: 570px) {
     width: 320px;
@@ -26,9 +28,9 @@ export const Card = styled.div`
   @media (min-width: 750px) {
     width: 710px;
   }
-`
-
-export const Button = styled.button`
+  `
+  
+  export const Button = styled.button`
   width: 320px;
   height: 35px;
   background: #3a83a5;
@@ -37,6 +39,7 @@ export const Button = styled.button`
   border: none;
   border-radius: 3px;
   align-self: center;
+  margin: 0 0 10px 0;
 `
 
 export const Label = styled.label`
@@ -53,9 +56,12 @@ export const Title = styled.h3`
   font-family: 'Raleway', sans-serif;
   font-weight: 300;
   color: #4d4d4d;
+  text-transform: capitalize;
 `
 
 export const Text = styled.p`
   font-family: 'Raleway', sans-serif;
+  text-indent: 10px;
+  text-transform: capitalize;
   color: ${props => props.color || '#4d4d4d'}
 `

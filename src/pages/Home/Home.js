@@ -22,7 +22,7 @@ export class Home extends React.Component {
           <Button
             onClick={ this.handleComponent }
           >{ this.state.cadasterCard ? 
-              'Listar solicitações' :
+              'Listar Solicitações' :
                'Solicitar Cartão de Crédito'
             }</Button>
         </Tab>

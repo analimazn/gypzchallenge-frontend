@@ -6,6 +6,15 @@ const GlobalStyle = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  background-color: #c9cffa;
+  
+  a {
+    text-decoration: none;
+  }
+
+  button {
+    cursor: pointer;
+  }
   
   * {
     margin: 0;
