@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Card, Button, Label, Title, Text } from './ListStyle'
+import { Container, Card, Button, Title, Text } from './ListStyle'
 
 export class List extends React.Component {
   render() {
@@ -12,8 +12,8 @@ export class List extends React.Component {
           <Text>OLÁ</Text>
           <Title>OLÁ:</Title>
           <Text>OLÁ</Text>
-          <Button>Remover</Button>
         </Card>
+          <Button>Remover</Button>
         <Card>
           <Title>OLÁ:</Title>
           <Text>OLÁ</Text>
@@ -21,8 +21,17 @@ export class List extends React.Component {
           <Text>OLÁ</Text>
           <Title>OLÁ:</Title>
           <Text>OLÁ</Text>
-          <Button>Remover</Button>
         </Card>
+          <Button>Remover</Button>
+        <Card>
+          <Title>OLÁ:</Title>
+          <Text>OLÁ</Text>
+          <Title>OLÁ:</Title>
+          <Text>OLÁ</Text>
+          <Title>OLÁ:</Title>
+          <Text>OLÁ</Text>
+        </Card>
+          <Button>Remover</Button>
       </Container>
     )
   }

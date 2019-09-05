@@ -4,18 +4,6 @@ import * as Yup from 'yup'
 import { Container, Form, Input, Button, Text, Label } from './FormStyle'
 import { Formik } from 'formik'
 
-const initialForm = {
-  firstName: '',
-  lastName: '',
-  document: '',
-  bornDate: '',
-  zipCode: '',
-  houseNumber: '',
-  moreInfo: '',
-  cellphoneNumber: '',
-  phoneNumber: '',
-  income: ''
-}
 
 const formValidationSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -52,7 +40,7 @@ const formValidationSchema = Yup.object().shape({
   phoneNumber: Yup.number()
     .positive('Por favor, insira valores inteiros')
     .test('len', 'Mínimo 10 caracteres', phone => phone && phone.toString().length === 10),
-  income: Yup.number()
+  amount: Yup.number()
     .positive('Por favor, insira valores inteiros')
     .min(100, 'Mínimo R$ 100,00')
     .required('Por favor, insira a sua renda mensal')
@@ -79,7 +67,7 @@ export class CadasterCard extends React.Component {
             moreInfo: '',
             cellphoneNumber: '',
             phoneNumber: '',
-            income: ''
+            amount: ''
           }}
           validate={ values => {
             let errors = {}
@@ -231,14 +219,14 @@ export class CadasterCard extends React.Component {
               
               <Label>
                 Renda *
-                { errors.income && <Text color="red">{ errors.income }</Text> }
+                { errors.amount && <Text color="red">{ errors.amount }</Text> }
                 <Input
                   onChange={ handleChange }
                   onBlur={ handleBlur }
-                  value={ values.income || '' }
-                  border={ errors.income && "1px solid red" }
+                  value={ values.amount || '' }
+                  border={ errors.amount && "1px solid red" }
                   type="number"
-                  name="income"
+                  name="amount"
                   placeholder="Somente números (R$ 100,00)"
                 />
               </Label>

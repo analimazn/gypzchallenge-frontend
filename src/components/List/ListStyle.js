@@ -3,31 +3,40 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 20px;
-  padding: 5px;
+  align-content: center;
 `
 
 export const Card = styled.div`
   display: flex;
-  flex-direction: column;
-  width: 750px;
+  flex-direction: column; 
   padding: 5px;
-  margin: 5px;
-  border: 2px solid #c9cffa;
+  margin: 10px 0 10px 0;
   border-radius: 3px;
+  align-self: center;
+  border: 2px solid #c9cffa;
+  
+  @media (max-width: 570px) {
+    width: 320px;
+  }
+
+  @media (min-width: 570px) and (max-width: 750px) {
+    width: 550px;
+  } 
+
+  @media (min-width: 750px) {
+    width: 710px;
+  }
 `
 
 export const Button = styled.button`
-  width: 300px;
+  width: 320px;
   height: 35px;
   background: #3a83a5;
   color: #fff;
   font-size: 1em;
   border: none;
   border-radius: 3px;
-  align-self: end;
+  align-self: center;
 `
 
 export const Label = styled.label`

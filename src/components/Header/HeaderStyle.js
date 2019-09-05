@@ -1,17 +1,14 @@
 import styled from 'styled-components'
 
-export const ColorHeader = styled.div`
+export const Container = styled.div`
+  width: 100%;
   background-color: #ffffff;
   display: flex;
   align-items: start;
   justify-content: space-around;
 `
   
-export const Container = styled.div`
-  display: flex;
-  align-self: start;
-  width: 95%;
-  border-bottom: 2px solid #c9cffa;
+export const ColorHeader = styled.div`
   margin: 20px;
   padding: 5px;
 
