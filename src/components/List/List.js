@@ -1,21 +1,29 @@
 import React from 'react'
 import axios from 'axios'
-import { Container, Title, Button, Alert } from './ListStyle'
+import { Container, Button, Alert } from './ListStyle'
 import { Card } from '../Card/Card'
 
 export class List extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      orders: []
+      orders: [],
+      showScreen: true
     }
   }
 
   async componentDidMount() {
     try {
-      const res = await this.getOrders()
-      if (res !== undefined) {
-        this.setState({ orders: res.data.data })
+      const connection = await this.getIndex()
+      if (connection === undefined) {
+        this.setState({ showScreen: false })
+        throw Error(connection.message)
+      } else {
+        const orders = await this.getOrders()
+        if (orders === undefined) {
+          throw Error(orders.message)
+        }
+        this.setState({ orders: orders.data.data })
       }
     } catch (err) {
       console.error(err)
@@ -24,9 +32,23 @@ export class List extends React.Component {
 
   async getOrders() {
     try {
-      const response = await axios.get('http://0.0.0.0:3000/order')
-      if (response.status !== 200) throw Error(response.message)
-      return response
+      const result = await axios.get('http://0.0.0.0:3000/order')
+      if (result.status !== 200) {
+        throw Error(result.message)
+      }
+      return result
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  async getIndex() {
+    try {
+      const result = await axios.get('http://0.0.0.0:3000/')
+      if (result.status !== 200) {
+        throw Error(result.message)
+      }
+      return result
     } catch (err) {
       console.error(err)
     }
@@ -34,20 +56,27 @@ export class List extends React.Component {
 
   async deleteOrder(order) {
     if (window.confirm('Deseja mesmo remover esta solicitação?')) {
-      const res = await axios.delete('http://0.0.0.0:3000/order', 
+      const result = await axios.delete('http://0.0.0.0:3000/order', 
         { params: order })
-      const orders = await axios.get('http://0.0.0.0:3000/order')
-      if (orders !== undefined) {
-        this.setState({ orders: orders.data.data })
-      } else {
-        alert("Erro ao tentar deletar, por favor, tente novamente")
+      
+      if (result.status !== 200) {
+        throw Error(result.message)
       }
+
+      const orders = await axios.get('http://0.0.0.0:3000/order')
+      if (orders === undefined) {
+        throw Error(orders.message)
+      }
+      this.setState({ orders: orders.data.data })
     }
   }
 
   render() {
     return (
       <Container>
+        {!this.state.showScreen &&
+          <Alert> Ocorreu um erro, por favor tente novamente mais tarde :( </Alert>
+        }
         {this.state.orders && this.state.orders.map(value => {
           return (
             <Container key={value._id}>
@@ -76,10 +105,6 @@ export class List extends React.Component {
             </Container>
           )
         })}
-        {!this.state.orders.length && 
-        <Alert>
-          <Title color='red'>Sem solicitações</Title>
-        </Alert>}
       </Container>
     )
   }
