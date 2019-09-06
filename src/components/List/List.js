@@ -105,6 +105,9 @@ export class List extends React.Component {
             </Container>
           )
         })}
+        {(!this.state.orders.length && this.state.showScreen) &&
+          <Alert> Parece que você não possui solicitações :) </Alert>
+        }
       </Container>
     )
   }
