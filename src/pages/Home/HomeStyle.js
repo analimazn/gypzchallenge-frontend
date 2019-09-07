@@ -6,6 +6,18 @@ export const Tab = styled.div`
   justify-content: center;
   margin: 20px;
   padding: 5px;
+
+  @media (max-width: 570px) {
+    width: 320px;
+  }
+
+  @media (min-width: 570px) and (max-width: 750px) {
+    width: 550px;
+  } 
+
+  @media (min-width: 750px) {
+    width: 710px;
+  }
 `
 
 export const Button = styled.button`
