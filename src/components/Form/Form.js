@@ -17,7 +17,7 @@ export class CadasterCard extends React.Component {
   async componentDidMount() {
     try {
       const connection = await this.getIndex()
-      if (connection === undefined) {
+      if (connection === undefined || connection.status !== 200) {
         this.setState({ showScreen: false })
         throw Error(connection.message)
       }
@@ -29,9 +29,6 @@ export class CadasterCard extends React.Component {
   async getIndex() {
     try {
       const result = await api.get('/')
-      if (result.status !== 200) {
-        throw Error(result.message)
-      }
       return result
     } catch (err) {
       console.error(err)
