@@ -1,5 +1,5 @@
 import React from 'react'
-import axios from 'axios'
+import api from '../../services/api'
 import { Container, Button, Alert } from './ListStyle'
 import { Card } from '../Card/Card'
 
@@ -32,7 +32,7 @@ export class List extends React.Component {
 
   async getOrders() {
     try {
-      const result = await axios.get('http://0.0.0.0:3000/order')
+      const result = await api.get('/order')
       if (result.status !== 200) {
         throw Error(result.message)
       }
@@ -44,7 +44,7 @@ export class List extends React.Component {
 
   async getIndex() {
     try {
-      const result = await axios.get('http://0.0.0.0:3000/')
+      const result = await api.get('/')
       if (result.status !== 200) {
         throw Error(result.message)
       }
@@ -56,7 +56,7 @@ export class List extends React.Component {
 
   async deleteOrder(order) {
     if (window.confirm('Deseja mesmo remover esta solicitação?')) {
-      const result = await axios.delete('http://0.0.0.0:3000/order', 
+      const result = await api.delete('/order', 
         { params: order })
       
       if (result.status !== 200) {
@@ -64,7 +64,7 @@ export class List extends React.Component {
         throw Error(result.message)
       }
 
-      const orders = await axios.get('http://0.0.0.0:3000/order')
+      const orders = await api.get('/order')
       if (orders === undefined) {
         throw Error(orders.message)
       }

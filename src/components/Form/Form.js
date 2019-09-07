@@ -1,6 +1,6 @@
 import React from 'react'
 import moment from 'moment'
-import axios from 'axios'
+import api from '../../services/api'
 import { formValidationSchema } from '../../config/FormValidation'
 import { Container, Form, Input, Button, Alert, Text, Label } from './FormStyle'
 import { Formik } from 'formik'
@@ -28,7 +28,7 @@ export class CadasterCard extends React.Component {
 
   async getIndex() {
     try {
-      const result = await axios.get('http://0.0.0.0:3000/')
+      const result = await api.get('/')
       if (result.status !== 200) {
         throw Error(result.message)
       }
@@ -77,7 +77,7 @@ export class CadasterCard extends React.Component {
             }}
             onSubmit={ async (values, bag) => {
               try {
-                const result = await axios.post('http://0.0.0.0:3000/order', { data: values })
+                const result = await api.post('/order', { data: values })
 
                 if (result === undefined || result.status !== 200) {
                   alert('Por favor, confira se os seus dados estão corretos')
