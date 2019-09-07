@@ -60,6 +60,7 @@ export class List extends React.Component {
         { params: order })
       
       if (result.status !== 200) {
+        alert('Ocorreu um erro ao tentar remover')
         throw Error(result.message)
       }
 

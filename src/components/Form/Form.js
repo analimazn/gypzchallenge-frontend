@@ -78,9 +78,12 @@ export class CadasterCard extends React.Component {
             onSubmit={ async (values, bag) => {
               try {
                 const result = await axios.post('http://0.0.0.0:3000/order', { data: values })
-                if (result === undefined) {
+
+                if (result === undefined || result.status !== 200) {
+                  alert('Por favor, confira se os seus dados estão corretos')
                   throw Error(result.message)
-                }
+                } 
+                
                 alert('Dados salvos com sucesso')
                 bag.resetForm()
               } catch (err) {
