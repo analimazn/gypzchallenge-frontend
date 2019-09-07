@@ -72,8 +72,8 @@ export class CadasterCard extends React.Component {
               } else if (age < 18) {
                 errors.bornDate = 'Mínimo 18 anos'
               }
-
               return errors
+              
             }}
             onSubmit={ async (values, bag) => {
               try {
@@ -83,9 +83,9 @@ export class CadasterCard extends React.Component {
                   alert('Por favor, confira se os seus dados estão corretos')
                   throw Error(result.message)
                 } 
-                
                 alert('Dados salvos com sucesso')
                 bag.resetForm()
+
               } catch (err) {
                 console.error(err)
               }
