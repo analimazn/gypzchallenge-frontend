@@ -1,68 +1,150 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Front-end - Challenge GYPZ
 
-## Available Scripts
+```
+Nodejs
+node : v10.15.3
+yarn  : 1.17.3
+```
 
-In the project directory, you can run:
+Front-end para gerenciar solicitações de cartões de crédito.
 
-### `npm start`
+1. [Instalação](#installation)
+2. [Estrutura do Projeto](#concept-of-structure)
+    1. [Sobre Public](#public-folder)
+    2. [Sobre Assets](#assets-folder)
+    3. [Sobre Components](#components-folder)
+    4. [Sobre Config](#config-folder)
+    5. [Sobre Pages](#pages-folder)
+    6. [Sobre Services](#services-folder)
+    7. [Sobre Styles](#styles-folder)
+3. [Dependências do projeto](#dependencies)
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+## Instalação
 
-### `npm test`
+Para instalar as dependências utilize as linhas de comando do [`yarn`](https://yarnpkg.com/en/).
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```sh
+yarn install
+```
 
-### `npm run build`
+Crie o arquivo `.env` de acordo com o arquivo `.env.example`.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+No arquivo `.env` é possível utilizar a API que está disponível no endereço [`https://gypzchallenge-backend.herokuapp.com/`](https://gypzchallenge-backend.herokuapp.com/) em um servidor disponível no [Heroku](https://www.heroku.com), ou, se preferir, você pode baixar e configurar a API localmente através deste [repositório](https://github.com/analimazn/gypzchallenge-backend).
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Para esse projeto foi utilizado a lib javascript [`React`](https://reactjs.org/).
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Estrutura do projeto
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+├── public
+│   ├── dot.png
+│   └── index.html
+├── README.md
+├── src
+│   ├── App.js
+│   ├── assets
+│   │   └── images
+│   │       ├── cards-b&w.png
+│   │       ├── cards-circle.png
+│   │       ├── cards-hand-b&w.png
+│   │       ├── cards-hand.png
+│   │       └── cards.png
+│   ├── components
+│   │   ├── Card
+│   │   │   ├── Card.js
+│   │   │   └── CardStyle.js
+│   │   ├── Form
+│   │   │   ├── Form.js
+│   │   │   └── FormStyle.js
+│   │   ├── Header
+│   │   │   ├── Header.js
+│   │   │   └── HeaderStyle.js
+│   │   └── List
+│   │       ├── List.js
+│   │       └── ListStyle.js
+│   ├── config
+│   │   └── FormValidation.js
+│   ├── index.js
+│   ├── pages
+│   │   └── Home
+│   │       ├── Home.js
+│   │       └── HomeStyle.js
+│   ├── services
+│   │   └── api.js
+│   └── styles
+│       └── globals.js
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+### Diretório **public**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+O diretório `public` armazena o `index.html` utilizado no projeto.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+### Diretório **src/assets**
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+O diretório de `assets` é responsável por armazenar todos os conteúdos estáticos utilizados no projeto.
 
-### Analyzing the Bundle Size
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+### Diretório **src/components**
 
-### Making a Progressive Web App
+O diretório de `components` é responsável por armazenar todos os componentes criados no projeto. Cada componente possui seu próprio diretório onde temos o arquivo de `style` com as informações de estilização e o arquivo do componente em si, onde as informações necessárias são renderizadas.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+Sobre os componentes:
 
-### Advanced Configuration
+**Card** -> Responsável por renderizar as informações das solicitações que foram realizadas.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+**Form** -> Formulário utilizado para que possa ser feito o envio de uma nova solicitação de cartão de crédito. Para validar os dados utiliza-se um objeto `schema` localizado no diretório `config`.
 
-### Deployment
+**Header** -> Aqui temos a renderização do logo e demais informações sobre a aplicação.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+**List** -> Responsável por renderizar todos os `cards` com as informações das solicitações salvas. Aqui também é possível remover as solicitações.
 
-### `npm run build` fails to minify
+### Diretório **src/config**
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+O diretório de `config` contém o `schema` criado a partir da biblioteca [Yup](https://github.com/jquense/yup) para validar os dados da requisição antes de enviar a requisição para a API.
+
+
+### Diretório **src/pages**
+
+O diretório de `pages` é responsável por renderizar todas as páginas do projeto a partir dos componentes criados em `components`. Toda página possui seu próprio diretório, com arquivo de `style` para estilização e o arquivo da página em si.
+
+**Home** -> Responsável por renderizar todo o conteúdo e verificar qual informação o usuário deseja, se é listar todas as solicitações feitas ou enviar uma nova.
+
+
+### Diretório **src/services**
+
+O diretório de `services` é responsável por conectar nossa aplicação à API responsável pelas requisições REST do projeto.
+
+
+### Diretório **src/styles**
+
+O diretório de `styles` é responsável pelos arquivos de estilização que englobam todos os componentes do projeto.
+
+Após a instalação estar completa e o arquivo `.env` estar devidamente preenchido, para rodar o projeto localmente digite o comando:
+
+```sh
+yarn start
+```
+
+ou
+
+```sh
+npm start
+```
+
+O projeto rodará localmente no endereço [http://localhost:3000/](http://localhost:3000/) ou [http://localhost:3001/](http://localhost:3001/), caso você esteja rodando a API localmente, mas é possível conferí-lo online no endereço [https://gypzchallenge-frontend.herokuapp.com/](https://gypzchallenge-frontend.herokuapp.com/) onde está armazenado em um servidor no [Heroku](https://www.heroku.com)
+
+
+## Dependências
+
+- [axios](https://ghub.io/axios): Biblioteca responsável por realizar requisições HTTP.
+- [formik](https://ghub.io/formik): Biblioteca responsável por criar e validar formulários.
+- [moment](https://ghub.io/moment): Biblioteca responsável po validar e manipular datas.
+- [react](https://ghub.io/react): Biblioteca Javascript para construir interfaces.
+- [styled-components](https://ghub.io/styled-components): Biblioteca utilizada para renderizar CSS nos componentes do React.
+- [yup](https://ghub.io/yup): Objeto com função de `schema` utilizado para validar Objetos Javascript.
